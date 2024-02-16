@@ -1,0 +1,35 @@
+version: "3.3"
+
+services:
+  pawpatroldb:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: "pawpatroldb"
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: "asnala"
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - "3306:3306"
+    expose:
+      # Opens port 3306 on the container
+      - "3306"
+    container_name: pawpatroldb
+
+  pawpatrol:
+    image: asukanala/pawpatrol:latest
+    restart: always
+    environment:
+      PORT: 3000
+      DB_HOST: "pawpatroldb"
+      DB_USER: "root"
+      DB_PASS: "asnala"
+      DB_NAME: "pawpatroldb"
+      DB_SSL: "false"
+      BASE_URL: "http://localhost:3000"
+    depends_on:
+      pawpatroldb:
+        condition: service_started
+    ports:
+      - "3000:3000"
+    container_name: pawpatrol-server
