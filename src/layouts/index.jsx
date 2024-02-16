@@ -24,7 +24,13 @@ const Layout = () => {
     <Root>
       <Header />
       <Main>
-        <Outlet />
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <GridItem>
+              <Outlet />
+            </GridItem>
+          </Grid>
+        </Grid>
       </Main>
       <Footer />
     </Root>
