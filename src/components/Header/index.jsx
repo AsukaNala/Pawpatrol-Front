@@ -9,7 +9,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -30,8 +30,8 @@ const navItems = ["Search Missing Pets", "Search Found Pets"];
 // }));
 
 const LogoImg = styled("img")(() => ({
-  width: 50,
-  height: 50,
+  width: 80,
+  height: 80,
   borderRadius: "50%",
   marginRight: 10,
 
@@ -86,10 +86,13 @@ function Header(props) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <MenuIcon />
+            {/* <MenuIcon /> */}
+            <LogoImg src={Logo} alt="Logo" />
           </IconButton>
+
           <Typography
-            variant="h6"
+            variant="h3"
+            ml={2}
             component="div"
             sx={{
               fontFamily: "Permanent Marker, cursive",
