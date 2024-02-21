@@ -8,26 +8,30 @@ import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-// import MenuIcon from "@mui/icons-material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Logo from "../../assets/logo.png";
 import { styled } from "@mui/material/styles";
-// import { NavLink, Link as RouterLink } from "react-router-dom";
+import { NavLink, Link as RouterLink } from "react-router-dom";
 import Link from "@mui/material/Link";
 
 const drawerWidth = 240;
-const navItems = ["Search Missing Pets", "Search Found Pets"];
 
-// const LogoLink = styled(Link)(() => ({
-//   display: "flex",
-//   alignItems: "center",
-//   color: "inherit",
-//   textDecoration: "none",
-//   flexGrow: 1,
-// }));
+const LogoLink = styled(Link)(() => ({
+  display: "flex",
+  alignItems: "center",
+  color: "inherit",
+  textDecoration: "none",
+  flexGrow: 1,
+}));
+
+const HeaderLink = styled(Button)(({ theme }) => ({
+  marginLeft: theme.spacing(1),
+  textDecoration: "none",
+  color: "inherit",
+}));
 
 const LogoImg = styled("img")(() => ({
   width: 80,
@@ -51,21 +55,28 @@ function Header(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography
-        variant="h6"
-        sx={{ fontFamily: "Permanent Marker, cursive", my: 2 }}
-      >
-        Paw Patrol
-      </Typography>
+      <NavLink to="/">
+        <Typography
+          variant="h6"
+          sx={{ fontFamily: "Permanent Marker, cursive", my: 2 }}
+        >
+          Paw Patrol
+        </Typography>
+      </NavLink>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <HeaderLink component={NavLink} to="/missingpets/search">
+              Search Missing Pets
+            </HeaderLink>
+          </ListItemButton>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <HeaderLink component={NavLink} to="/foundpets/search">
+              Search Found Pets
+            </HeaderLink>
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -78,7 +89,21 @@ function Header(props) {
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar>
-          <LogoImg src={Logo} alt="Logo" />
+          <LogoLink component={RouterLink} to="/">
+            <LogoImg src={Logo} alt="Logo" />
+            <Typography
+              variant="h3"
+              ml={2}
+              component="div"
+              sx={{
+                fontFamily: "Permanent Marker, cursive",
+                flexGrow: 1,
+                display: { xs: "none", sm: "block" },
+              }}
+            >
+              Paw Patrol
+            </Typography>
+          </LogoLink>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -86,29 +111,18 @@ function Header(props) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            {/* <MenuIcon /> */}
-            <LogoImg src={Logo} alt="Logo" />
+            <MenuIcon />
           </IconButton>
 
-          <Typography
-            variant="h3"
-            ml={2}
-            component="div"
-            sx={{
-              fontFamily: "Permanent Marker, cursive",
-              flexGrow: 1,
-              display: { xs: "none", sm: "block" },
-            }}
-          >
-            Paw Patrol
-          </Typography>
-
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
-              </Button>
-            ))}
+            <nav>
+              <HeaderLink component={NavLink} to="/missingpets/search">
+                Search Missing Pets
+              </HeaderLink>
+              <HeaderLink component={NavLink} to="/foundpets/search">
+                Search Found Pets
+              </HeaderLink>
+            </nav>
           </Box>
         </Toolbar>
       </AppBar>
@@ -119,7 +133,7 @@ function Header(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
