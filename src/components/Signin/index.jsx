@@ -6,21 +6,22 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import { Link } from "react-router-dom";
 
-const Login = () => {
-  //TO DO!  add state for email and password or reducer, and dispatch here
-
-  const loginUser = async (e) => {
-    e.preventDefault();
-
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-
-    //TO DO!  add login logic here
-  };
-
+const Signin = () => {
   return (
     <Box textAlign="center">
-      <FormControl sx={{ width: "500px" }} onSubmit={loginUser}>
+      <FormControl sx={{ width: "500px" }}>
+        <label>
+          <strong>Name</strong>
+        </label>
+        <TextField
+          fullWidth
+          required
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Please enter your name"
+          margin="normal"
+        />
         <label>
           <strong>Email</strong>
         </label>
@@ -47,18 +48,14 @@ const Login = () => {
         />
         <Link to="/select">
           <Button type="submit" variant="contained">
-            Login
+            Signin
           </Button>
         </Link>
         {/* {loading && <Loader />} */}
         {/* {error && <Alert severity="error" message={error} />} */}
-        <p>If you don't have an account</p>
-        <Link to="/signin">
-          <Button variant="outlined">Sign Up</Button>
-        </Link>
       </FormControl>
     </Box>
   );
 };
 
-export default Login;
+export default Signin;
