@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
-import Signin from "../pages/Signin";
+import SigninPage from "../pages/SigninPage";
 import SelectPage from "../pages/SelectPage";
 import PostMissingPets from "../pages/MissingPets/PostMissingPets";
 import SearchMissingPets from "../pages/MissingPets/SearchMissingPets";
@@ -13,7 +13,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/signin" element={<SigninPage />} />
         <Route path="/select" element={<SelectPage />} />
         <Route path="/missingpets/post" element={<PostMissingPets />} />
         <Route path="/missingpets/search" element={<SearchMissingPets />} />
