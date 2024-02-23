@@ -5,11 +5,12 @@ import { login, logout } from "../actions/authActions";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  const [authState, dispatch] = useReducer(authReducer, initialState);
 
-  const value = { state, dispatch };
   return (
-    <AuthContext.Provider value={{ value }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ authState, dispatch }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

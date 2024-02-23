@@ -9,9 +9,9 @@ import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const {
-    state: { loading, error, token, user },
+    authState: { loading, error, token, user },
     dispatch,
-  } = useAuth().value;
+  } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -55,6 +55,7 @@ const Login = () => {
           <Button type="submit" variant="contained">
             Login
           </Button>
+          {token && user && <Navigate to="/select" />}
 
           {loading && <Loader />}
           {error && <Alert severity="error">{error}</Alert>}
@@ -64,7 +65,6 @@ const Login = () => {
           </Link>
         </form>
       </Box>
-      {token && user && <Navigate to="/select" />}
     </>
   );
 };
