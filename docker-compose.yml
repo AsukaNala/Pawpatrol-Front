@@ -27,6 +27,7 @@ services:
       DB_NAME: "pawpatroldb"
       DB_SSL: "false"
       BASE_URL: "http://localhost:3000"
+      JWT_KEY: "secret"
     depends_on:
       pawpatroldb:
         condition: service_started
