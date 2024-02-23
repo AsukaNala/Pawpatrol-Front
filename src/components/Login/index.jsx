@@ -1,34 +1,32 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-// import Loader from "../Loader";
-// import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import LoginValidation from "./LoginValidation";
+import { useAuth, login } from "../../context/AuthContext";
+import Loader from "../Loader";
+import Alert from "@mui/material/Alert";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
-  //TO DO!  add state for email and password or reducer, and dispatch here
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
-  });
-  const [error, setErrors] = useState({});
+  const {
+    state: { loading, error, token, user },
+    dispatch,
+  } = useAuth().value;
 
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(values);
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    await login(dispatch, email, password);
   };
 
   return (
     <>
-      <Box textAlign="center">
-        <FormControl sx={{ width: "500px" }} onSubmit={handleSubmit}>
+      <Box
+        textAlign="center"
+        sx={{ display: "flex", justifyContent: "center" }}
+      >
+        <form onSubmit={handleLogin}>
           <label>
             <strong>Email</strong>
           </label>
@@ -40,7 +38,6 @@ const Login = () => {
             type="email"
             placeholder="Please enter your email address"
             margin="normal"
-            onChange={handleChange}
           />
           <label>
             <strong>Password</strong>
@@ -53,21 +50,21 @@ const Login = () => {
             type="password"
             placeholder="Please enter your password"
             margin="normal"
-            onChange={handleChange}
           />
-          <Link to="/select">
-            <Button type="submit" variant="contained">
-              Login
-            </Button>
-          </Link>
-          {/* {loading && <Loader />} */}
-          {/* {error && <Alert severity="error" message={error} />} */}
+
+          <Button type="submit" variant="contained">
+            Login
+          </Button>
+
+          {loading && <Loader />}
+          {error && <Alert severity="error">{error}</Alert>}
           <p>If you don't have an account</p>
           <Link to="/signin">
-            <Button variant="outlined">Sign Up</Button>
+            <Button variant="outlined">Signin</Button>
           </Link>
-        </FormControl>
+        </form>
       </Box>
+      {token && user && <Navigate to="/select" />}
     </>
   );
 };
