@@ -4,14 +4,18 @@ import Box from "@mui/material/Box";
 import { useAuth, login } from "../../context/AuthContext";
 import Loader from "../Loader";
 import Alert from "@mui/material/Alert";
-import { Navigate } from "react-router-dom";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
+
 import { signinReducer, initialState } from "../../reducers/signinReducer";
 import { useReducer } from "react";
-// import { signin } from "../../actions/signinActions";
 
 const Signin = () => {
   const {
-    authState: { loading, error, token, user },
+    authState: { isAuthenticated, loading, error, user },
     dispatch: authDispatch,
   } = useAuth();
   const [state, dispatch] = useReducer(signinReducer, initialState);
@@ -51,56 +55,84 @@ const Signin = () => {
 
   return (
     <>
-      <Box
-        textAlign="center"
-        sx={{ display: "flex", justifyContent: "center" }}
-      >
-        <form onSubmit={handleSignin}>
-          <label>
-            <strong>Name</strong>
-          </label>
-          <TextField
-            fullWidth
-            required
-            id="name"
-            name="name"
-            type="text"
-            placeholder="Please enter your name"
-            margin="normal"
-          />
-          <label>
-            <strong>Email</strong>
-          </label>
-          <TextField
-            fullWidth
-            required
-            id="email"
-            name="email"
-            type="email"
-            placeholder="Please enter your email address"
-            margin="normal"
-          />
-          <label>
-            <strong>Password</strong>
-          </label>
-          <TextField
-            fullWidth
-            required
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Please enter your password"
-            margin="normal"
-          />
+      {!isAuthenticated ? (
+        <Box
+          textAlign="center"
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          <form onSubmit={handleSignin}>
+            <label>
+              <strong>Name</strong>
+            </label>
+            <TextField
+              fullWidth
+              required
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Please enter your name"
+              margin="normal"
+            />
+            <label>
+              <strong>Email</strong>
+            </label>
+            <TextField
+              fullWidth
+              required
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Please enter your email address"
+              margin="normal"
+            />
+            <label>
+              <strong>Password</strong>
+            </label>
+            <TextField
+              fullWidth
+              required
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Please enter your password"
+              margin="normal"
+            />
 
-          <Button type="submit" variant="contained">
-            Signin
-          </Button>
-          {loading && <Loader />}
-          {error && <Alert severity="error">{error}</Alert>}
-        </form>
-      </Box>
-      {token && user && <Navigate to="/select" />}
+            <Button type="submit" variant="contained">
+              Signin
+            </Button>
+            {loading && <Loader />}
+            {error && <Alert severity="error">{error}</Alert>}
+          </form>
+        </Box>
+      ) : (
+        <Box
+          textAlign="center"
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          <Card sx={{ minWidth: 300 }}>
+            <CardContent>
+              <Typography variant="h4" component="div">
+                {`Welcome ${user.name}!`}
+              </Typography>
+              <br />
+              <Typography variant="body1">
+                You are successfully logged in
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button
+                variant="outlined"
+                component={Link}
+                to="/select"
+                size="medium"
+              >
+                Let's get started!
+              </Button>
+            </CardActions>
+          </Card>
+        </Box>
+      )}
     </>
   );
 };

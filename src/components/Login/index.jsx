@@ -5,11 +5,14 @@ import { Link } from "react-router-dom";
 import { useAuth, login } from "../../context/AuthContext";
 import Loader from "../Loader";
 import Alert from "@mui/material/Alert";
-import { Navigate } from "react-router-dom";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
 const Login = () => {
   const {
-    authState: { loading, error, token, user },
+    authState: { isAuthenticated, loading, error, user },
     dispatch,
   } = useAuth();
 
@@ -22,49 +25,77 @@ const Login = () => {
 
   return (
     <>
-      <Box
-        textAlign="center"
-        sx={{ display: "flex", justifyContent: "center" }}
-      >
-        <form onSubmit={handleLogin}>
-          <label>
-            <strong>Email</strong>
-          </label>
-          <TextField
-            fullWidth
-            required
-            id="email"
-            name="email"
-            type="email"
-            placeholder="Please enter your email address"
-            margin="normal"
-          />
-          <label>
-            <strong>Password</strong>
-          </label>
-          <TextField
-            fullWidth
-            required
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Please enter your password"
-            margin="normal"
-          />
+      {!isAuthenticated ? (
+        <Box
+          textAlign="center"
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          <form onSubmit={handleLogin}>
+            <label>
+              <strong>Email</strong>
+            </label>
+            <TextField
+              fullWidth
+              required
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Please enter your email address"
+              margin="normal"
+            />
+            <label>
+              <strong>Password</strong>
+            </label>
+            <TextField
+              fullWidth
+              required
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Please enter your password"
+              margin="normal"
+            />
 
-          <Button type="submit" variant="contained">
-            Login
-          </Button>
-          {token && user && <Navigate to="/select" />}
+            <Button type="submit" variant="contained">
+              Login
+            </Button>
 
-          {loading && <Loader />}
-          {error && <Alert severity="error">{error}</Alert>}
-          <p>If you don't have an account</p>
-          <Link to="/signin">
-            <Button variant="outlined">Signin</Button>
-          </Link>
-        </form>
-      </Box>
+            {loading && <Loader />}
+            {error && <Alert severity="error">{error}</Alert>}
+            <p>If you don't have an account</p>
+            <Button component={Link} to="/signin" variant="outlined">
+              Signin
+            </Button>
+          </form>
+        </Box>
+      ) : (
+        <Box
+          textAlign="center"
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          <Card sx={{ minWidth: 300 }}>
+            <CardContent>
+              <Typography variant="h4" component="div">
+                {`Welcome ${user.name}!`}
+              </Typography>
+              <br />
+              <Typography variant="body1">
+                You are successfully logged in
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button
+                variant="outlined"
+                component={Link}
+                to="/select"
+                size="medium"
+              >
+                Let's get started!
+              </Button>
+            </CardActions>
+          </Card>
+        </Box>
+      )}
     </>
   );
 };

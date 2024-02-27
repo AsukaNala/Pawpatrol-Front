@@ -4,13 +4,20 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./css/index.css";
 import { AuthProvider } from "./context/AuthContext";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { MissingPetProvider } from "./context/MissingPetContext.jsx";
 // import { UserProvider } from "./context/userContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <MissingPetProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <App />
+          </LocalizationProvider>
+        </MissingPetProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
