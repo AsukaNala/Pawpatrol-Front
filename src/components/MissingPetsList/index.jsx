@@ -1,11 +1,20 @@
 import { useEffect } from "react";
 import { getMissingPets, useMissingPet } from "../../context/MissingPetContext";
+import { useNavigate } from "react-router-dom";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Button, CardActionArea, CardActions } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
 const MissingPetsList = () => {
   const {
-    state: { missingPets, loading, error },
+    state: { missingPets, selectedMissingPets, loading, error },
     dispatch,
   } = useMissingPet();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -14,16 +23,55 @@ const MissingPetsList = () => {
     fetchData();
   }, [dispatch]);
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    const id = e.currentTarget.dataset.id;
+    navigate(`/missingpets/${id}`);
+  };
+
   return (
-    <div>
+    <>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <ul>
+      <Grid container spacing={3}>
         {missingPets.map((missingPet) => (
-          <li key={missingPet.id}>{missingPet.name}</li>
+          <Grid xs={12} sm={6} md={3} key={missingPet.id}>
+            <Card sx={{ maxWidth: 345, margin: 3, marginLeft: 3 }}>
+              <CardMedia
+                component="img"
+                height="200"
+                image={`${import.meta.env.VITE_IMAGE_URL}/${
+                  missingPet ? missingPet.photo : ""
+                }`}
+                title={missingPet.name}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {missingPet.name}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  Missing Since: {missingPet.lostDate}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  Missing Location: {missingPet.lastSeenLocation}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button
+                  variant="contained"
+                  size="mideum"
+                  color="primary"
+                  data-id={missingPet.id}
+                  onClick={handleClick}
+                >
+                  Detail
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
         ))}
-      </ul>
-    </div>
+      </Grid>
+    </>
   );
 };
 export default MissingPetsList;

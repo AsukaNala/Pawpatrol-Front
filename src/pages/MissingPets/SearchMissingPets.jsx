@@ -3,7 +3,7 @@ import MissingPetsList from "../../components/MissingPetsList";
 const SearchMissingPets = () => {
   return (
     <div>
-      <h1>Search Missing Pets</h1>
+      <h1>They are Missing!</h1>
       <MissingPetsList />
     </div>
   );
