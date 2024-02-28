@@ -64,7 +64,7 @@ const Login = () => {
             {error && <Alert severity="error">{error}</Alert>}
             <p>If you don't have an account</p>
             <Button component={Link} to="/signin" variant="outlined">
-              Signin
+              Sign Up
             </Button>
           </form>
         </Box>
@@ -85,7 +85,7 @@ const Login = () => {
             </CardContent>
             <CardActions>
               <Button
-                variant="outlined"
+                variant="contained"
                 component={Link}
                 to="/select"
                 size="medium"

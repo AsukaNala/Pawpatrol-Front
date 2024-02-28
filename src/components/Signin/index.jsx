@@ -94,12 +94,12 @@ const Signin = () => {
               id="password"
               name="password"
               type="password"
-              placeholder="Please enter your password"
+              placeholder="Password must be 6 - 8 characters long"
               margin="normal"
             />
 
             <Button type="submit" variant="contained">
-              Signin
+              Sign Up
             </Button>
             {loading && <Loader />}
             {error && <Alert severity="error">{error}</Alert>}
@@ -122,7 +122,7 @@ const Signin = () => {
             </CardContent>
             <CardActions>
               <Button
-                variant="outlined"
+                variant="contained"
                 component={Link}
                 to="/select"
                 size="medium"

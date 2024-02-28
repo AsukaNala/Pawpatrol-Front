@@ -55,20 +55,20 @@ const getMissingPet = async (dispatch, id) => {
   }
 };
 
-const createMissingPet = async (dispatch, missingPet) => {
+const createMissingPet = async (dispatch, missingPet, token) => {
   dispatch({ type: "CREATE_MPT_REQUEST" });
   try {
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/missingpets`,
       {
         method: "POST",
+        body: missingPet,
         headers: {
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(missingPet),
       }
     );
-    console.log(response);
+
     const data = await response.json();
     if (data.result === 200) {
       console.log(data);
@@ -95,9 +95,7 @@ const updateMissingPet = async (dispatch, missingPet) => {
       `${import.meta.env.VITE_API_URL}/missingpets/${id}`,
       {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+
         body: missingPet,
       }
     );
