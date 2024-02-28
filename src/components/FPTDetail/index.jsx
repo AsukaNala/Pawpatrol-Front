@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useMissingPet, getMissingPet } from "../../context/MissingPetContext";
+import { useFoundPet, getFoundPet } from "../../context/FoundPetContext";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -8,18 +8,18 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { useNavigate, useParams, Link } from "react-router-dom";
 
-const MPTDetail = () => {
+const FPTDetail = () => {
   const navigate = useNavigate();
   const urlParams = useParams();
   const id = urlParams.id;
   const {
-    state: { currentMissingPet, itemLoading, itemError },
+    state: { currentFoundPet, itemLoading, itemError },
     dispatch,
-  } = useMissingPet();
+  } = useFoundPet();
 
   useEffect(() => {
     async function fetchData() {
-      await getMissingPet(dispatch, id);
+      await getFoundPet(dispatch, id);
     }
     fetchData();
   }, [dispatch, id]);
@@ -28,43 +28,40 @@ const MPTDetail = () => {
     <Box textAlign="center" sx={{ display: "flex", justifyContent: "center" }}>
       {itemLoading && <p>Loading...</p>}
       {itemError && <p>{itemError}</p>}
-      {currentMissingPet && (
+      {currentFoundPet && (
         <Card sx={{ maxWidth: 500, marginLeft: 3 }}>
           <CardMedia
             component="img"
             height="300"
             image={`${import.meta.env.VITE_IMAGE_URL}/${
-              currentMissingPet ? currentMissingPet.photo : ""
+              currentFoundPet ? currentFoundPet.photo : ""
             }`}
-            title={currentMissingPet.name}
+            title={currentFoundPet.type}
           />
           <CardContent>
-            <Typography gutterBottom variant="h2" component="div">
-              {currentMissingPet.name}
+            <Typography variant="body1" color="text.secondary">
+              Found on: {currentFoundPet.foundDate}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Missing Since: {currentMissingPet.lostDate}
+              Found Location: {currentFoundPet.foundLocation}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Missing Location: {currentMissingPet.lastSeenLocation}
+              Type: {currentFoundPet.type}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Type: {currentMissingPet.type}
+              Colour: {currentFoundPet.colour}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Colour: {currentMissingPet.colour}
+              Already claimed?: {currentFoundPet.status}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Still Missing?: {currentMissingPet.status}
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Message from Owner: {currentMissingPet.comment}
+              Message from Founder: {currentFoundPet.comment}
             </Typography>
           </CardContent>
           <Button
             variant="contained"
             color="primary"
-            onClick={() => navigate(`/missingpets/search`)}
+            onClick={() => navigate(`/foundpets/search`)}
           >
             Back
           </Button>
@@ -74,4 +71,4 @@ const MPTDetail = () => {
   );
 };
 
-export default MPTDetail;
+export default FPTDetail;

@@ -1,109 +1,109 @@
 export const initialState = {
-  missingPets: [],
-  currentMissingPet: null,
-  selectedMissingPet: null,
+  foundPets: [],
+  currentFoundPet: null,
+  selectedFoundPet: null,
   loading: false,
   itemLoading: false,
   error: null,
   itemError: null,
 };
 
-export const missingPetReducer = (state = initialState, action) => {
+export const foundPetReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "FETCH_MPTs_REQUEST":
+    case "FETCH_FPTs_REQUEST":
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case "FETCH_MPTs_SUCCESS":
+    case "FETCH_FPTs_SUCCESS":
       return {
         ...state,
-        missingPets: action.payload,
+        foundPets: action.payload,
         loading: false,
       };
-    case "FETCH_MPTs_FAILURE":
+    case "FETCH_FPTs_FAILURE":
       return {
         ...state,
         error: action.payload,
         loading: false,
       };
-    case "FETCH_MPT_REQUEST":
+    case "FETCH_FPT_REQUEST":
       return {
         ...state,
         itemLoading: true,
         itemError: null,
       };
-    case "FETCH_MPT_SUCCESS":
+    case "FETCH_FPT_SUCCESS":
       return {
         ...state,
-        currentMissingPet: action.payload,
+        currentFoundPet: action.payload,
         itemLoading: false,
       };
-    case "FETCH_MPT_FAILURE":
+    case "FETCH_FPT_FAILURE":
       return {
         ...state,
         itemError: action.payload,
         itemLoading: false,
       };
-    case "SELECT_MPT":
+    case "SELECT_FPT":
       return {
         ...state,
-        selectedMissingPet: action.payload,
+        selectedFoundPet: action.payload,
       };
-    case "CREATE_MPT_REQUEST":
+    case "CREATE_FPT_REQUEST":
       return {
         ...state,
         itemError: null,
         itemLoading: true,
       };
-    case "CREATE_MPT_SUCCESS":
+    case "CREATE_FPT_SUCCESS":
       return {
         ...state,
-        missingpets: [...state.missingPets, action.payload],
+        foundpets: [...state.foundPets, action.payload],
         itemLoading: false,
       };
-    case "CREATE_MPT_FAILURE":
+    case "CREATE_FPT_FAILURE":
       return {
         ...state,
         itemError: action.payload,
         itemLoading: false,
       };
-    case "UPDATE_MPT_REQUEST":
+    case "UPDATE_FPT_REQUEST":
       return {
         ...state,
         itemError: null,
         itemLoading: true,
       };
-    case "UPDATE_MPT_SUCCESS":
+    case "UPDATE_FPT_SUCCESS":
       return {
         ...state,
-        missingPets: state.missingPets.map((missingPet) =>
-          missingPet.id === action.payload.id ? action.payload : missingPet
+        foundPets: state.foundPets.map((foundPet) =>
+          foundPet.id === action.payload.id ? action.payload : foundPet
         ),
         itemLoading: false,
       };
-    case "UPDATE_MPT_FAILURE":
+    case "UPDATE_FPT_FAILURE":
       return {
         ...state,
         itemError: action.payload,
         itemLoading: false,
       };
-    case "DELETE_MPT_REQUEST":
+    case "DELETE_FPT_REQUEST":
       return {
         ...state,
         itemError: null,
         itemLoading: true,
       };
-    case "DELETE_MPT_SUCCESS":
+    case "DELETE_FPT_SUCCESS":
       return {
         ...state,
-        missingPets: state.missingPets.filter(
-          (missingPet) => missingPet.id !== action.payload
+        foundPets: state.foundPets.filter(
+          (foundPet) => foundPet.id !== action.payload
         ),
         itemLoading: false,
       };
-    case "DELETE_MPT_FAILURE":
+    case "DELETE_FPT_FAILURE":
       return {
         ...state,
         itemError: action.payload,

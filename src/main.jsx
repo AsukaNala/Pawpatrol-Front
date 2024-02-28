@@ -7,16 +7,18 @@ import { AuthProvider } from "./context/AuthContext";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { MissingPetProvider } from "./context/MissingPetContext.jsx";
-// import { UserProvider } from "./context/userContext.jsx";
+import { FoundPetProvider } from "./context/FoundPetContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <MissingPetProvider>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <App />
-          </LocalizationProvider>
+          <FoundPetProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <App />
+            </LocalizationProvider>
+          </FoundPetProvider>
         </MissingPetProvider>
       </AuthProvider>
     </BrowserRouter>

@@ -8,6 +8,7 @@ import PostFoundPets from "../pages/FoundPets/PostFoundPets";
 import SearchFoundPets from "../pages/FoundPets/SearchFoundPets";
 import Layout from "../layouts";
 import MissingPetDetail from "../pages/MissingPets/MissingPetDetail";
+import FoundPetDetail from "../pages/FoundPets/FoundPetDetail";
 
 const AppRoutes = () => {
   return (
@@ -21,7 +22,7 @@ const AppRoutes = () => {
         <Route path="/missingpets/:id" element={<MissingPetDetail />} />
         <Route path="/foundpets/post" element={<PostFoundPets />} />
         <Route path="/foundpets/search" element={<SearchFoundPets />} />
-        {/* <Route path="/foundpets/:id" element={<FoundPetDetail />} /> */}
+        <Route path="/foundpets/:id" element={<FoundPetDetail />} />
       </Route>
     </Routes>
   );
