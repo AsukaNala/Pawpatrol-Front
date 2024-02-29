@@ -136,7 +136,7 @@ const PostFPT = () => {
                 name="foundLocation"
                 type="text"
                 required
-                placeholder="Where did you find?"
+                placeholder="Where did you find it?"
                 variant="outlined"
                 fullWidth
               />

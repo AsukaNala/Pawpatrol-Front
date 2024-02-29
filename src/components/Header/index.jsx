@@ -16,6 +16,8 @@ import Logo from "../../assets/logo.png";
 import { styled } from "@mui/material/styles";
 import { NavLink, Link as RouterLink } from "react-router-dom";
 import Link from "@mui/material/Link";
+import Logout from "../Logout";
+// import { logout } from "../../context/AuthContext";
 
 const drawerWidth = 240;
 
@@ -53,6 +55,10 @@ function Header(props) {
     setMobileOpen((prevState) => !prevState);
   };
 
+  // const handleLogout = () => {
+  //   logout(dispatch);
+  // };
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <NavLink to="/">
@@ -78,6 +84,8 @@ function Header(props) {
           </ListItemButton>
         </ListItem>
       </List>
+      {/* <Button variant="outlined">Logout</Button> */}
+      <Logout />
     </Box>
   );
 
@@ -87,7 +95,7 @@ function Header(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar component="nav" style={{ backgroundColor: "#3b00db" }}>
         <Toolbar>
           <LogoLink component={RouterLink} to="/">
             <LogoImg src={Logo} alt="Logo" />
@@ -122,6 +130,7 @@ function Header(props) {
               <HeaderLink component={NavLink} to="/foundpets/search">
                 Search Found Pets
               </HeaderLink>
+              <Logout />
             </nav>
           </Box>
         </Toolbar>

@@ -10,14 +10,14 @@ import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getMissingPets, useMissingPet } from "../../context/MissingPetContext";
-import MissingPetsList from "../MissingPetsList";
+import { getFoundPets, useFoundPet } from "../../context/FoundPetContext";
+import FoundPetsList from "../FoundPetsList";
 
-const SearchMPT = () => {
+const SearchFPT = () => {
   const {
-    state: { missingPets, loading, error },
+    state: { foundPets, loading, error },
     dispatch,
-  } = useMissingPet();
+  } = useFoundPet();
 
   const [filteredPets, setFilteredPets] = useState([]);
   const [selectedType, setSelectedType] = useState("");
@@ -28,21 +28,21 @@ const SearchMPT = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await getMissingPets(dispatch);
+      await getFoundPets(dispatch);
     }
     fetchData();
   }, [dispatch]);
 
   useEffect(() => {
     setFilteredPets(
-      missingPets.filter(
+      foundPets.filter(
         (pet) =>
           (!selectedType || pet.type === selectedType) &&
-          (!selectedLocation || pet.lastSeenLocation === selectedLocation) &&
+          (!selectedLocation || pet.foundLocation === selectedLocation) &&
           (!selectedStatus || pet.status === selectedStatus)
       )
     );
-  }, [missingPets, selectedType, selectedLocation, selectedStatus]);
+  }, [foundPets, selectedType, selectedLocation, selectedStatus]);
 
   const handleTypeChange = (e) => {
     setSelectedType(e.target.value);
@@ -57,7 +57,7 @@ const SearchMPT = () => {
   const handleClick = (e) => {
     e.preventDefault();
     const id = e.currentTarget.dataset.id;
-    navigate(`/missingpets/${id}`);
+    navigate(`/foundpets/${id}`);
   };
 
   return (
@@ -69,7 +69,7 @@ const SearchMPT = () => {
 
         <Select
           sx={{ width: 200, margin: "20px 30px" }}
-          placeholder="Please select your pet type"
+          placeholder="Please select type"
           id="type"
           name="type"
           value={selectedType}
@@ -83,17 +83,17 @@ const SearchMPT = () => {
         </Select>
 
         <label>
-          <strong>Missing Location </strong>
+          <strong>Found Location </strong>
         </label>
         <TextField
           sx={{ width: 300, margin: "20px 30px" }}
-          id="lastSeenLocation"
-          name="lastSeenLocation"
+          id="foundLocation"
+          name="foundLocation"
           type="text"
           value={selectedLocation}
           onChange={handleLocationChange}
           required
-          placeholder="Where was your pet last seen?"
+          placeholder="Where did you find it?"
           variant="outlined"
         />
         <label>
@@ -106,8 +106,8 @@ const SearchMPT = () => {
           value={selectedStatus}
           onChange={handleStatusChange}
         >
-          <MenuItem value="missing">Missing</MenuItem>
-          <MenuItem value="found">Found</MenuItem>
+          <MenuItem value="unclaimed">Unclaimed</MenuItem>
+          <MenuItem value="claimed">Claimed</MenuItem>
         </Select>
 
         <Button
@@ -122,7 +122,7 @@ const SearchMPT = () => {
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       {!showFilteredResults ? (
-        <MissingPetsList />
+        <FoundPetsList />
       ) : showFilteredResults && filteredPets.length > 0 ? (
         <Grid container spacing={3}>
           {filteredPets.map((filteredPet) => (
@@ -177,7 +177,7 @@ const SearchMPT = () => {
               <Button
                 variant="contained"
                 component={Link}
-                to="/missingpets/search"
+                to="/foundpets/search"
                 size="medium"
                 onClick={() => setShowFilteredResults(false)}
               >
@@ -191,4 +191,4 @@ const SearchMPT = () => {
   );
 };
 
-export default SearchMPT;
+export default SearchFPT;

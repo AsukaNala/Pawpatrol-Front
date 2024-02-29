@@ -9,6 +9,7 @@ import SearchFoundPets from "../pages/FoundPets/SearchFoundPets";
 import Layout from "../layouts";
 import MissingPetDetail from "../pages/MissingPets/MissingPetDetail";
 import FoundPetDetail from "../pages/FoundPets/FoundPetDetail";
+import LogoutSuccess from "../pages/LogoutSuccess";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const AppRoutes = () => {
         <Route path="/foundpets/post" element={<PostFoundPets />} />
         <Route path="/foundpets/search" element={<SearchFoundPets />} />
         <Route path="/foundpets/:id" element={<FoundPetDetail />} />
+        <Route path="/logout" element={<LogoutSuccess />} />
       </Route>
     </Routes>
   );
