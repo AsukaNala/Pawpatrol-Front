@@ -3,7 +3,7 @@ import MPTDetail from "../../components/MPTDetail";
 const MissingPetDetail = () => {
   return (
     <div>
-      <h1>MissingPetDetail</h1>
+      <h1>Missing Pet Detail</h1>
       <MPTDetail />
     </div>
   );

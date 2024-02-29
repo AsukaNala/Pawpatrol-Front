@@ -45,11 +45,15 @@ const FoundPetsList = () => {
                 title={foundPet.type}
               />
               <CardContent>
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" color="text.primary">
                   Missing Since: {foundPet.foundDate}
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" color="text.primary">
                   Missing Location: {foundPet.foundLocation}
+                </Typography>
+                <Typography variant="body1" color="text.primary">
+                  Updated Date:{" "}
+                  {new Date(foundPet.updatedAt).toLocaleDateString()}
                 </Typography>
               </CardContent>
               <CardActions>

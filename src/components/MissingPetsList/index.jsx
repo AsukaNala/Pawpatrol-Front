@@ -49,11 +49,15 @@ const MissingPetsList = () => {
                 <Typography gutterBottom variant="h5" component="div">
                   {missingPet.name}
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" color="text.primary">
                   Missing Since: {missingPet.lostDate}
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" color="text.primary">
                   Missing Location: {missingPet.lastSeenLocation}
+                </Typography>
+                <Typography variant="body1" color="text.primary">
+                  Updated Date:{" "}
+                  {new Date(missingPet.updatedAt).toLocaleDateString()}
                 </Typography>
               </CardContent>
               <CardActions>

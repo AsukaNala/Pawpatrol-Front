@@ -134,17 +134,14 @@ const SearchFPT = () => {
                   image={`${import.meta.env.VITE_IMAGE_URL}/${
                     filteredPet ? filteredPet.photo : ""
                   }`}
-                  title={filteredPet.name}
+                  title={filteredPet.type}
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {filteredPet.name}
+                  <Typography variant="body1" color="text.secondary">
+                    Missing Since: {filteredPet.foundDate}
                   </Typography>
                   <Typography variant="body1" color="text.secondary">
-                    Missing Since: {filteredPet.lostDate}
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    Missing Location: {filteredPet.lastSeenLocation}
+                    Missing Location: {filteredPet.foundLocation}
                   </Typography>
                 </CardContent>
                 <CardActions>

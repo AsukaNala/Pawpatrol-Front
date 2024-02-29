@@ -42,22 +42,22 @@ const MPTDetail = () => {
             <Typography gutterBottom variant="h2" component="div">
               {currentMissingPet.name}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Missing Since: {currentMissingPet.lostDate}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Missing Location: {currentMissingPet.lastSeenLocation}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Type: {currentMissingPet.type}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Colour: {currentMissingPet.colour}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Still Missing?: {currentMissingPet.status}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Message from Owner: {currentMissingPet.comment}
             </Typography>
           </CardContent>

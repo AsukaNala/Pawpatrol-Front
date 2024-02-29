@@ -39,22 +39,22 @@ const FPTDetail = () => {
             title={currentFoundPet.type}
           />
           <CardContent>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Found on: {currentFoundPet.foundDate}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Found Location: {currentFoundPet.foundLocation}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Type: {currentFoundPet.type}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Colour: {currentFoundPet.colour}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Already claimed?: {currentFoundPet.status}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.primary">
               Message from Founder: {currentFoundPet.comment}
             </Typography>
           </CardContent>

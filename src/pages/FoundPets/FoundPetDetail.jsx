@@ -3,7 +3,7 @@ import FPTDetail from "../../components/FPTDetail";
 const FoundPetDetail = () => {
   return (
     <div>
-      <h1>MissingPetDetail</h1>
+      <h1>Found Pet Detail</h1>
       <FPTDetail />
     </div>
   );
