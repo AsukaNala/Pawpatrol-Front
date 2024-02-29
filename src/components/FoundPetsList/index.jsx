@@ -34,7 +34,7 @@ const FoundPetsList = () => {
       {error && <p>{error}</p>}
       <Grid container spacing={3}>
         {foundPets.map((foundPet) => (
-          <Grid xs={12} sm={6} md={3} key={foundPet.id}>
+          <Grid item xs={12} sm={6} md={3} key={foundPet.id}>
             <Card sx={{ maxWidth: 345, margin: 3, marginLeft: 3 }}>
               <CardMedia
                 component="img"
