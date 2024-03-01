@@ -27,6 +27,7 @@ const SearchFPT = () => {
   const [showFilteredResults, setShowFilteredResults] = useState(false);
   const navigate = useNavigate();
 
+  //get all found pets first
   useEffect(() => {
     async function fetchData() {
       await getFoundPets(dispatch);
