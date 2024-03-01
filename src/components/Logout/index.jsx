@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { logout, login, useAuth } from "../../context/AuthContext";
+import { logout, useAuth } from "../../context/AuthContext";
 
 const Logout = () => {
   const {

@@ -46,10 +46,10 @@ const FoundPetsList = () => {
               />
               <CardContent>
                 <Typography variant="body1" color="text.primary">
-                  Missing Since: {foundPet.foundDate}
+                  Found on: {foundPet.foundDate}
                 </Typography>
                 <Typography variant="body1" color="text.primary">
-                  Missing Location: {foundPet.foundLocation}
+                  Found Location: {foundPet.foundLocation}
                 </Typography>
                 <Typography variant="body1" color="text.primary">
                   Updated Date:{" "}

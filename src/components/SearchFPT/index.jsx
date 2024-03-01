@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getFoundPets, useFoundPet } from "../../context/FoundPetContext";
 import FoundPetsList from "../FoundPetsList";
+import Autocomplete from "react-google-autocomplete";
 
 const SearchFPT = () => {
   const {
@@ -34,21 +35,30 @@ const SearchFPT = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setFilteredPets(
-      foundPets.filter(
-        (pet) =>
-          (!selectedType || pet.type === selectedType) &&
-          (!selectedLocation || pet.foundLocation === selectedLocation) &&
-          (!selectedStatus || pet.status === selectedStatus)
-      )
-    );
-  }, [foundPets, selectedType, selectedLocation, selectedStatus]);
+    console.log("useeffect");
+
+    console.log("filteredPets", filteredPets);
+  }, [filteredPets, showFilteredResults]);
 
   const handleTypeChange = (e) => {
     setSelectedType(e.target.value);
   };
   const handleLocationChange = (e) => {
-    setSelectedLocation(e.target.value);
+    const filterLocation = e.target.value;
+    setSelectedLocation(filterLocation);
+
+    const newPetList = [];
+    console.log(foundPets.length);
+    for (let i = 0; i < foundPets.length; i++) {
+      console.log(foundPets[i]);
+      if (foundPets[i].foundLocation == filterLocation) {
+        newPetList.push(foundPets[i]);
+      }
+    }
+
+    setFilteredPets(newPetList);
+    console.log("new pet list");
+    console.log(newPetList);
   };
   const handleStatusChange = (e) => {
     setSelectedStatus(e.target.value);
@@ -95,6 +105,29 @@ const SearchFPT = () => {
           required
           placeholder="Where did you find it?"
           variant="outlined"
+          InputProps={{
+            inputComponent: Autocomplete,
+            inputProps: {
+              apiKey: "AIzaSyCBxFaO8j45Vcyo7eR1XOqPY93QtWdt328",
+              onPlaceSelected: (place) => {
+                console.log(place);
+                console.log(1111);
+                const filterLocation = place.formatted_address;
+                setSelectedLocation(filterLocation);
+
+                const newPetList = [];
+                console.log("foundpets", foundPets.length);
+                for (let i = 0; i < foundPets.length; i++) {
+                  console.log(foundPets[i]);
+                  if (foundPets[i].foundLocation == filterLocation) {
+                    newPetList.push(foundPets[i]);
+                  }
+                }
+
+                setFilteredPets(newPetList);
+              },
+            },
+          }}
         />
         <label>
           <strong>Status</strong>

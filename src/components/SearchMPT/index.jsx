@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMissingPets, useMissingPet } from "../../context/MissingPetContext";
 import MissingPetsList from "../MissingPetsList";
+// import Autocomplete from "react-google-autocomplete";
 
 const SearchMPT = () => {
   const {
@@ -95,6 +96,16 @@ const SearchMPT = () => {
           required
           placeholder="Where was your pet last seen?"
           variant="outlined"
+          // InputProps={{
+          //   inputComponent: Autocomplete,
+          //   inputProps: {
+          //     apiKey: "AIzaSyCBxFaO8j45Vcyo7eR1XOqPY93QtWdt328",
+          //     onPlaceSelected: (place) => {
+          //       console.log(place);
+          //       setSelectedLocation(place.formatted_address);
+          //     },
+          //   },
+          // }}
         />
         <label>
           <strong>Status</strong>
