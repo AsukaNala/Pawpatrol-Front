@@ -29,7 +29,11 @@ const PostFPT = () => {
   const [date, setDate] = useState(null);
   const [status, setStatus] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState("");
 
+  const handleLocationChange = (e) => {
+    setSelectedLocation(e.target.value);
+  };
   const handleTypeChange = (e) => {
     setType(e.target.value);
   };
@@ -62,9 +66,9 @@ const PostFPT = () => {
     formData.append("photo", photo);
     formData.append("status", status);
 
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
+    // for (var pair of formData.entries()) {
+    //   console.log(pair[0] + ", " + pair[1]);
+    // }
 
     await createFoundPet(dispatch, formData, token);
     setSubmitted(true);
@@ -129,7 +133,6 @@ const PostFPT = () => {
 
             <Grid item xs={12}>
               <label>
-                {/* add map? */}
                 <strong>Found Location </strong>
               </label>
               <TextField
@@ -140,12 +143,14 @@ const PostFPT = () => {
                 placeholder="Where did you find it?"
                 variant="outlined"
                 fullWidth
+                value={selectedLocation}
+                onChange={handleLocationChange}
                 InputProps={{
                   inputComponent: Autocomplete,
                   inputProps: {
                     apiKey: "AIzaSyCBxFaO8j45Vcyo7eR1XOqPY93QtWdt328",
                     onPlaceSelected: (place) => {
-                      console.log(place);
+                      setSelectedLocation(place.formatted_address);
                     },
                   },
                 }}
@@ -169,7 +174,6 @@ const PostFPT = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              {/* probably other fields */}
               <label>
                 <strong>Upload a photo </strong>
               </label>
