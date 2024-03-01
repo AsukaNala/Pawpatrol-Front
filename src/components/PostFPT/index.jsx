@@ -14,6 +14,7 @@ import { Select, MenuItem } from "@mui/material";
 import { useFoundPet, createFoundPet } from "../../context/FoundPetContext";
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
+import Autocomplete from "react-google-autocomplete";
 
 const PostFPT = () => {
   const {
@@ -139,6 +140,15 @@ const PostFPT = () => {
                 placeholder="Where did you find it?"
                 variant="outlined"
                 fullWidth
+                InputProps={{
+                  inputComponent: Autocomplete,
+                  inputProps: {
+                    apiKey: "AIzaSyCBxFaO8j45Vcyo7eR1XOqPY93QtWdt328",
+                    onPlaceSelected: (place) => {
+                      console.log(place);
+                    },
+                  },
+                }}
               />
             </Grid>
 

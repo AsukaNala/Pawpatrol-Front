@@ -17,6 +17,7 @@ import {
 } from "../../context/MissingPetContext";
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
+import Autocomplete from "react-google-autocomplete";
 
 const PostMPT = () => {
   const {
@@ -159,6 +160,15 @@ const PostMPT = () => {
                 placeholder="Where was your pet last seen?"
                 variant="outlined"
                 fullWidth
+                InputProps={{
+                  inputComponent: Autocomplete,
+                  inputProps: {
+                    apiKey: "AIzaSyCBxFaO8j45Vcyo7eR1XOqPY93QtWdt328",
+                    onPlaceSelected: (place) => {
+                      console.log(place);
+                    },
+                  },
+                }}
               />
             </Grid>
 
