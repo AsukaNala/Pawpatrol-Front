@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getFoundPets, useFoundPet } from "../../context/FoundPetContext";
 import FoundPetsList from "../FoundPetsList";
+import Autocomplete from "react-google-autocomplete";
 
 const SearchFPT = () => {
   const {
@@ -50,6 +51,10 @@ const SearchFPT = () => {
   const handleLocationChange = (e) => {
     setSelectedLocation(e.target.value);
   };
+  const handleAutocomplete = (place) => {
+    setSelectedLocation(place.formatted_address);
+  };
+
   const handleStatusChange = (e) => {
     setSelectedStatus(e.target.value);
   };
@@ -66,7 +71,6 @@ const SearchFPT = () => {
         <label>
           <strong>Pet Type</strong>
         </label>
-
         <Select
           sx={{ width: 200, margin: "20px 30px" }}
           placeholder="Please select type"
@@ -81,7 +85,6 @@ const SearchFPT = () => {
           <MenuItem value="rabbit">Rabbit</MenuItem>
           <MenuItem value="other">Other</MenuItem>
         </Select>
-
         <label>
           <strong>Found Location </strong>
         </label>
@@ -90,12 +93,20 @@ const SearchFPT = () => {
           id="foundLocation"
           name="foundLocation"
           type="text"
-          value={selectedLocation}
-          onChange={handleLocationChange}
           required
           placeholder="Where did you find it?"
           variant="outlined"
+          value={selectedLocation || ""}
+          onChange={handleLocationChange}
+          InputProps={{
+            inputComponent: Autocomplete,
+            inputProps: {
+              apiKey: "AIzaSyCBxFaO8j45Vcyo7eR1XOqPY93QtWdt328",
+              onPlaceSelected: handleAutocomplete,
+            },
+          }}
         />
+
         <label>
           <strong>Status</strong>
         </label>
@@ -109,7 +120,6 @@ const SearchFPT = () => {
           <MenuItem value="unclaimed">Unclaimed</MenuItem>
           <MenuItem value="claimed">Claimed</MenuItem>
         </Select>
-
         <Button
           type="submit"
           variant="contained"
@@ -138,10 +148,10 @@ const SearchFPT = () => {
                 />
                 <CardContent>
                   <Typography variant="body1" color="text.secondary">
-                    Missing Since: {filteredPet.foundDate}
+                    Found on: {filteredPet.foundDate}
                   </Typography>
                   <Typography variant="body1" color="text.secondary">
-                    Missing Location: {filteredPet.foundLocation}
+                    Found Location: {filteredPet.foundLocation}
                   </Typography>
                 </CardContent>
                 <CardActions>
