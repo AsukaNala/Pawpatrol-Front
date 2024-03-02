@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMissingPets, useMissingPet } from "../../context/MissingPetContext";
 import MissingPetsList from "../MissingPetsList";
+import Autocomplete from "react-google-autocomplete";
 
 const SearchMPT = () => {
   const {
@@ -49,6 +50,10 @@ const SearchMPT = () => {
   };
   const handleLocationChange = (e) => {
     setSelectedLocation(e.target.value);
+  };
+
+  const handleAutocomplete = (place) => {
+    setSelectedLocation(place.formatted_address);
   };
   const handleStatusChange = (e) => {
     setSelectedStatus(e.target.value);
@@ -90,11 +95,18 @@ const SearchMPT = () => {
           id="lastSeenLocation"
           name="lastSeenLocation"
           type="text"
-          value={selectedLocation}
-          onChange={handleLocationChange}
           required
           placeholder="Where was your pet last seen?"
           variant="outlined"
+          value={selectedLocation}
+          onChange={handleLocationChange}
+          InputProps={{
+            inputComponent: Autocomplete,
+            inputProps: {
+              apiKey: "AIzaSyCBxFaO8j45Vcyo7eR1XOqPY93QtWdt328",
+              onPlaceSelected: handleAutocomplete,
+            },
+          }}
         />
         <label>
           <strong>Status</strong>
